@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Assistant IA — Démo</title>
+  <title>Assistant IA — Vitrine</title>
 
   <style>
     /* ===== Thème mauve & blanc ===== */
@@ -40,6 +40,9 @@
     .wrap{min-height:100%; padding:32px}
     .container{max-width:1100px; margin:0 auto}
 
+    /* ===== Bandeau de confiance ===== */
+    .ribbon{display:flex; justify-content:center; gap:12px; align-items:center; padding:8px 12px; border-radius:999px; background:var(--primary-100); color:var(--primary); font-weight:700; font-size:13px; border:1px solid var(--ring); width:max-content; margin:0 auto 18px}
+
     /* ===== Hero ===== */
     .hero{
       background: linear-gradient(180deg,#fff, #f9f7ff);
@@ -49,8 +52,9 @@
       display:flex; align-items:center; justify-content:space-between; gap:24px;
       box-shadow: var(--shadow);
     }
-    .hero h1{margin:0 0 8px 0; font-size:28px; letter-spacing:.2px}
+    .hero h1{margin:0 0 8px 0; font-size:32px; letter-spacing:.2px}
     .hero p{margin:0; color:var(--muted)}
+    .hero .meta{margin-top:10px; color:var(--muted); font-size:13px}
     .cta{
       background: var(--primary);
       color:#fff; border:none; cursor:pointer; font-weight:700;
@@ -61,114 +65,72 @@
     }
     .cta:hover{ transform: translateY(-1px); background:var(--primary-600) }
 
-    /* ===== Grille ===== */
+    .micro-proofs{display:flex; gap:10px; align-items:center; margin-top:10px}
+    .pill{background:var(--primary-100); color:var(--primary); padding:6px 10px; border-radius:999px; font-weight:700; border:1px solid var(--ring); font-size:12px}
+
+    /* ===== Sections ===== */
+    .section{margin-top:28px}
+    .section .section-inner{background:linear-gradient(180deg,#fff,#faf7ff); border:1px solid var(--border); border-radius:16px; padding:20px; box-shadow: var(--shadow)}
+
+    /* ===== 3 benefits grid ===== */
+    .benefits{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+    .benefit{padding:16px; border-radius:12px; background:#fff; border:1px solid var(--border)}
+    .benefit h4{margin:6px 0}
+    .icon{font-size:22px}
+
+    @media (max-width:960px){ .benefits{grid-template-columns:1fr} }
+
+    /* ===== Grille principale (chat + side) ===== */
     .grid{display:grid; grid-template-columns: 360px 1fr; gap:24px; margin-top:24px}
-    @media (max-width: 960px){
-      .grid{grid-template-columns: 1fr}
-    }
+    @media (max-width: 960px){ .grid{grid-template-columns: 1fr} }
 
-    /* ===== Cards ===== */
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
+    .card{background:var(--card); border:1px solid var(--border); border-radius: var(--radius);}
 
-    /* ===== Panneau gauche ===== */
-    .side{
-      padding:20px; display:flex; flex-direction:column; gap:16px;
-      position:sticky; top:24px; height:max-content;
-    }
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      background: var(--primary-100);
-      color: var(--primary);
-      border: 1px solid var(--ring);
-      padding:6px 10px; border-radius: 999px;
-      font-weight:700; font-size:12px; letter-spacing:.25px;
-    }
-    .profile{
-      padding:16px; border:1px dashed var(--ring); border-radius:14px;
-      background:linear-gradient(180deg,#fff, #faf7ff);
-    }
-    .profile h3{margin:0 0 6px 0; font-size:16px}
-    .profile p{margin:2px 0; color:var(--muted); font-size:14px}
+    .side{padding:20px; display:flex; flex-direction:column; gap:16px; position:sticky; top:24px; height:max-content}
 
-    .select-row{
-      display:flex; gap:10px; align-items:center;
-      padding:10px; border-radius:12px; border:1px solid var(--border); background:#fff;
-    }
-    label{font-size:13px; color:var(--muted)}
-    select{
-      appearance:none; width:100%;
-      padding:10px 12px; border-radius:10px; border:1px solid var(--border);
-      background:#fff; font-weight:600; color:var(--text);
-      outline: none;
-    }
-    select:focus{box-shadow: 0 0 0 4px var(--ring); border-color:var(--primary)}
-    .hint{font-size:12px; color:var(--muted); margin-top:4px}
-
-    /* ===== Chat ===== */
-    .chat{display:flex; flex-direction:column; height:min(78vh, 780px); padding:16px}
-    .chat-header{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:10px 12px 14px 12px; border-bottom:1px solid var(--border);
-    }
+    /* ===== Chat (reused) ===== */
+    .chat{display:flex; flex-direction:column; height:min(68vh, 780px); padding:16px}
+    .chat-header{display:flex; align-items:center; justify-content:space-between; padding:10px 12px 14px 12px; border-bottom:1px solid var(--border)}
     .chat-header h2{margin:0; font-size:18px}
     .status{display:flex; align-items:center; gap:8px; color:var(--muted); font-size:13px}
     .dot{width:8px; height:8px; background:var(--success); border-radius:50%}
-
     .messages{flex:1; overflow:auto; padding:16px 6px; scroll-behavior:smooth}
     .row{display:flex; align-items:flex-end; gap:8px}
     .row.right{justify-content:flex-end}
-    .bubble{
-      max-width: 70%;
-      padding:12px 14px; margin:10px 0;
-      border-radius:16px; line-height:1.45; font-size:15px;
-      box-shadow: 0 4px 16px rgba(17,24,39, .06);
-      border:1px solid var(--border); white-space:pre-wrap; word-break:break-word;
-    }
+    .bubble{max-width: 70%; padding:12px 14px; margin:10px 0; border-radius:16px; line-height:1.45; font-size:15px; box-shadow: 0 4px 16px rgba(17,24,39, .06); border:1px solid var(--border); white-space:pre-wrap; word-break:break-word}
     .bot{ background:#fff }
-    .user{
-      margin-left:auto;
-      background: linear-gradient(180deg, var(--primary), var(--primary-600));
-      color:white; border:none;
-    }
-
+    .user{ margin-left:auto; background: linear-gradient(180deg, var(--primary), var(--primary-600)); color:white; border:none }
     .composer{display:flex; gap:10px; padding:12px; border-top:1px solid var(--border)}
-    .composer input{
-      flex:1; padding:14px 16px; border-radius:12px; border:1px solid var(--border);
-      outline:none; font-size:15px; background:#fff;
-    }
+    .composer input{ flex:1; padding:14px 16px; border-radius:12px; border:1px solid var(--border); outline:none; font-size:15px; background:#fff }
     .composer input:focus{box-shadow:0 0 0 4px var(--ring); border-color:var(--primary)}
-    .btn{
-      padding:12px 16px; border-radius:12px; border:1px solid var(--primary);
-      background: var(--primary); color:white; font-weight:700;
-      cursor:pointer; transition: transform .06s ease, box-shadow .2s ease;
-      box-shadow: 0 10px 16px rgba(124,58,237,.22);
-    }
-    .btn:hover{transform: translateY(-1px)}
-    .btn:disabled{opacity:.6; cursor:not-allowed; box-shadow:none}
+    .btn{ padding:12px 16px; border-radius:12px; border:1px solid var(--primary); background: var(--primary); color:white; font-weight:700; cursor:pointer; transition: transform .06s ease, box-shadow .2s ease; box-shadow: 0 10px 16px rgba(124,58,237,.22) }
 
-    /* 3 points "typing" */
-    .typing{display:inline-flex; gap:4px; padding:10px 12px}
-    .dot-anim{width:8px; height:8px; border-radius:50%; background:var(--primary); animation: blink 1.4s infinite both}
-    .dot-anim:nth-child(2){ animation-delay:.2s }
-    .dot-anim:nth-child(3){ animation-delay:.4s }
-    @keyframes blink{ 0%{opacity:.2; transform:translateY(0)} 20%{opacity:1; transform:translateY(-3px)} 100%{opacity:.2; transform:translateY(0)} }
+    /* testimonials, pricing, faq */
+    .testimonials{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+    .testimonial{padding:16px; background:#fff; border-radius:12px; border:1px solid var(--border)}
+    .logos{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+    .logo{padding:10px 14px; background:#fff; border-radius:12px; border:1px solid var(--border)}
 
-    /* Affichage différé du chat */
-    #chatWrapper{display:none; opacity:0; transition: opacity .5s ease}
-    #chatWrapper.shown{display:block; opacity:1}
+    .pricing{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+    .price-card{padding:16px; border-radius:12px; background:#fff; border:1px solid var(--border)}
 
-    /* Mobile */
-    @media (max-width: 960px){
+    .faq{display:grid; gap:10px}
+    .faq-item{padding:12px; background:#fff; border-radius:10px; border:1px solid var(--border)}
+
+    .super-cta{margin-top:20px; padding:20px; border-radius:16px; background:linear-gradient(90deg,var(--primary-100),#fff); border:1px solid var(--ring); display:flex; justify-content:space-between; align-items:center}
+
+    footer{margin-top:28px; padding:18px; color:var(--muted); font-size:13px; display:flex; justify-content:space-between; align-items:center}
+
+    /* Mobile tweaks */
+    @media (max-width:960px){
       .side{position: static; top: auto; margin-bottom: 12px}
-      .chat{height: calc(100dvh - 160px)}
+      .chat{height: calc(100dvh - 260px)}
       .messages{padding: 12px 6px}
       .hero{flex-direction:column; align-items:flex-start}
+      .testimonials{grid-template-columns:1fr}
+      .pricing{grid-template-columns:1fr}
     }
+
   </style>
 </head>
 
@@ -176,81 +138,256 @@
   <div class="wrap">
     <div class="container">
 
-      <!-- ========= HERO avec bouton pour révéler le chatbot ========= -->
+      <!-- Bandeau de confiance -->
+      <div style="display:flex; justify-content:center; margin-bottom:12px">
+        <div class="ribbon">⚡ Réponses instantanées · 🇧🇪 Conçu en Belgique · Démo sans engagement</div>
+      </div>
+
+      <!-- HERO -->
       <section class="hero">
-        <div>
-          <h1>Assistant IA — Démo</h1>
-          <p>Testez l’assistant en un clic, directement sur cette page. Aucune redirection.</p>
+        <div style="max-width:66%">
+          <h1>Votre support client, sans attente.</h1>
+          <p>Un chatbot IA francophone qui répond automatiquement aux questions répétitives — 24/7 — prêt à être intégré sur votre site.</p>
+          <div class="meta">
+            <div class="micro-proofs">
+              <div class="pill">Essai gratuit</div>
+              <div class="pill">Installation offerte cette semaine</div>
+              <div class="pill">Support FR / EN</div>
+            </div>
+          </div>
         </div>
-        <button id="openChat" class="cta">💬 Tester le chatbot</button>
+
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px">
+          <!-- Le bouton est gardé pour style mais non nécessaire : on affiche le chat directement -->
+          <button id="openChat" class="cta" style="display:none">💬 Tester le chatbot</button>
+          <a href="#contact" class="cta" style="text-decoration:none; display:inline-block">📩 Demander une démo</a>
+        </div>
       </section>
 
-      <!-- ========= Le chatbot (caché par défaut) ========= -->
-      <div id="chatWrapper">
-        <div class="grid">
-          <!-- Colonne gauche -->
-          <aside class="card side">
-            <span class="badge">Assistant IA • Démo</span>
-
-            <div class="profile">
-              <h3 id="tenantName">Cabinet Martin Coaching</h3>
-              <p>• Tarif séance : <strong id="tenantPrice">80€ / h</strong></p>
-              <p>• Disponibilités : <strong id="tenantHours">Lun–Ven 9h–18h</strong></p>
-              <p>• Canaux : <strong id="tenantChannels">Visio & présentiel</strong></p>
+      <!-- ===== Benefits ===== -->
+      <section class="section">
+        <div class="section-inner">
+          <h3>Ce que vous gagnez</h3>
+          <div class="benefits" style="margin-top:12px">
+            <div class="benefit">
+              <div class="icon">⏱️</div>
+              <h4>Gain de temps</h4>
+              <p class="hint">Réduisez les tickets répétitifs (horaires, suivi de commande, retours) et laissez l'équipe gérer les cas complexes.</p>
             </div>
-
-            <div class="select-row">
-              <label for="mode">Mode</label>
-              <select id="mode">
-                <option value="pro">Pro (ton sérieux)</option>
-                <option value="chaleureux">Chaleureux (humain)</option>
-                <option value="coach">Coach Business Sophie</option>
-                <option value="cabinet_osteo">Cabinet Ostéo Duval</option>
-              </select>
+            <div class="benefit">
+              <div class="icon">🌙</div>
+              <h4>Disponible 24/7</h4>
+              <p class="hint">Réponses immédiates même en dehors des heures d'ouverture — meilleur taux de satisfaction.</p>
             </div>
-
-            <p class="hint">Astuce : change de mode pour montrer différentes “personas” sans toucher au code.</p>
-          </aside>
-
-          <!-- Colonne droite (chat) -->
-          <section class="card chat" aria-live="polite">
-            <div class="chat-header">
-              <h2>Assistant IA</h2>
-              <div class="status"><span class="dot"></span>En ligne</div>
+            <div class="benefit">
+              <div class="icon">🔧</div>
+              <h4>Facile à intégrer</h4>
+              <p class="hint">Snippet d'intégration simple (WordPress / Shopify / HTML). Pas besoin de développeur pour commencer.</p>
             </div>
-
-            <div id="messages" class="messages"></div>
-
-            <form id="chatForm" class="composer" autocomplete="off">
-              <input id="userInput" placeholder="Pose ta question…" />
-              <button id="sendBtn" class="btn" type="submit">Envoyer</button>
-            </form>
-          </section>
+          </div>
         </div>
-      </div>
-      <!-- ============================================================ -->
+      </section>
+
+      <!-- ===== Comment ça marche ===== -->
+      <section class="section">
+        <div class="section-inner">
+          <h3>Comment ça marche — en 3 étapes</h3>
+          <div style="display:flex; gap:12px; margin-top:12px; flex-wrap:wrap">
+            <div class="benefit" style="flex:1; min-width:220px">
+              <div class="icon">📂</div>
+              <h4>1. Importez vos FAQ</h4>
+              <p class="hint">On ingère vos FAQ depuis site, PDF, ou Google Docs pour entraîner l'IA.</p>
+            </div>
+            <div class="benefit" style="flex:1; min-width:220px">
+              <div class="icon">🧠</div>
+              <h4>2. On entraîne & personnalise</h4>
+              <p class="hint">Choisissez le ton (pro, chaleureux, etc.). Testez et ajustez les réponses.</p>
+            </div>
+            <div class="benefit" style="flex:1; min-width:220px">
+              <div class="icon">🚀</div>
+              <h4>3. On déploie</h4>
+              <p class="hint">Un petit snippet sur votre site ou intégration via widget — prêt à l'emploi.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Démo (chat) ===== -->
+      <section class="section">
+        <div class="section-inner">
+          <h3 id="demo">Testez-le en direct 👇</h3>
+          <p class="hint">Essayez des questions types : "Quels sont vos horaires ?", "Comment suivre ma commande ?"</p>
+
+          <!-- Le chatbot (affiché par défaut) -->
+          <div id="chatWrapper" class="shown">
+            <div class="grid" style="margin-top:12px">
+              <!-- Colonne gauche -->
+              <aside class="card side">
+                <span class="badge">Assistant IA • Démo</span>
+
+                <div class="profile">
+                  <h3 id="tenantName">Cabinet Martin Coaching</h3>
+                  <p>• Tarif séance : <strong id="tenantPrice">80€ / h</strong></p>
+                  <p>• Disponibilités : <strong id="tenantHours">Lun–Ven 9h–18h</strong></p>
+                  <p>• Canaux : <strong id="tenantChannels">Visio & présentiel</strong></p>
+                </div>
+
+                <div class="select-row" style="display:flex; gap:10px; align-items:center; padding:10px; border-radius:12px; border:1px solid var(--border); background:#fff">
+                  <label for="mode">Mode</label>
+                  <select id="mode">
+                    <option value="pro">Pro (ton sérieux)</option>
+                    <option value="chaleureux">Chaleureux (humain)</option>
+                    <option value="coach">Coach Business Sophie</option>
+                    <option value="cabinet_osteo">Cabinet Ostéo Duval</option>
+                  </select>
+                </div>
+
+                <p class="hint">Astuce : change de mode pour montrer différentes “personas”.</p>
+
+                <!-- Small contact box -->
+                <div style="margin-top:8px; padding:12px; border-radius:12px; background:var(--primary-100); border:1px solid var(--ring); font-size:13px">
+                  <div style="font-weight:700; color:var(--primary)">Intéressé(e) ?</div>
+                  <div style="margin-top:8px; color:var(--muted); font-size:13px">Contact rapide : <a href="mailto:TON_EMAIL_ICI" style="color:var(--primary); font-weight:700">TON_EMAIL_ICI</a></div>
+                  <div style="margin-top:6px; color:var(--muted); font-size:12px">Ou <a href="#contact" style="color:var(--primary); font-weight:700">demandez une démo</a></div>
+                </div>
+
+              </aside>
+
+              <!-- Colonne droite (chat) -->
+              <section class="card chat" aria-live="polite">
+                <div class="chat-header">
+                  <h2>Assistant IA</h2>
+                  <div class="status"><span class="dot"></span>En ligne</div>
+                </div>
+
+                <div id="messages" class="messages"></div>
+
+                <form id="chatForm" class="composer" autocomplete="off">
+                  <input id="userInput" placeholder="Pose ta question…" />
+                  <button id="sendBtn" class="btn" type="submit">Envoyer</button>
+                </form>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Testimonials & logos ===== -->
+      <section class="section">
+        <div class="section-inner">
+          <h3>Témoignages & clients</h3>
+          <p class="hint">(Remplir ici vos premiers retours clients — voir note en bas)</p>
+
+          <div style="display:flex; gap:16px; margin-top:12px; flex-wrap:wrap">
+            <div class="testimonial" style="flex:1; min-width:280px">
+              <div style="font-weight:700">"Un vrai gain de temps !"</div>
+              <div style="color:var(--muted); margin-top:6px">"Nous avons réduit de 50% les demandes répétitives en 2 semaines." — <strong>Client (TBD)</strong></div>
+            </div>
+            <div class="testimonial" style="flex:1; min-width:280px">
+              <div style="font-weight:700">"Installation ultra simple"</div>
+              <div style="color:var(--muted); margin-top:6px">"La mise en place a pris moins d'une journée." — <strong>Client (TBD)</strong></div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <div style="font-weight:700; margin-bottom:8px">Clients & partenaires</div>
+            <div class="logos">
+              <!-- Remplacez les placeholders par des logos réels quand vous en avez -->
+              <div class="logo">Logo 1</div>
+              <div class="logo">Logo 2</div>
+              <div class="logo">Logo 3</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Pricing ===== -->
+      <section class="section">
+        <div class="section-inner">
+          <h3>Offres</h3>
+          <div class="pricing" style="margin-top:12px">
+            <div class="price-card">
+              <h4>Essai Gratuit — 7 jours</h4>
+              <p class="hint">Testez le bot sur votre site sans CB. Formation de base incluse.</p>
+              <div style="margin-top:12px"><a href="#contact" class="cta" style="text-decoration:none">👉 Demander mon essai</a></div>
+            </div>
+            <div class="price-card">
+              <h4>Pro — Sur devis</h4>
+              <p class="hint">Plan adapté (intégration, ton sur-mesure, base FAQ, SLA).</p>
+              <div style="margin-top:12px"><a href="#contact" class="cta" style="text-decoration:none">👉 Demander un devis</a></div>
+            </div>
+          </div>
+          <p class="hint" style="margin-top:10px">Astuce : proposez une installation offerte ou un mois gratuit pour maximiser les premiers clients.</p>
+        </div>
+      </section>
+
+      <!-- ===== FAQ ===== -->
+      <section class="section">
+        <div class="section-inner">
+          <h3>FAQ</h3>
+          <div class="faq" style="margin-top:12px">
+            <div class="faq-item"><strong>Comment j'intègre le bot ?</strong><div class="hint">Un simple snippet ou widget — compatible WordPress/Shopify/HTML.</div></div>
+            <div class="faq-item"><strong>RGPD / données ?</strong><div class="hint">Les conversations peuvent être hébergées chez vous ou sur notre instance sécurisée — contactez-nous pour un contrat de traitement des données.</div></div>
+            <div class="faq-item"><strong>Le bot remplace-t-il vos équipes ?</strong><div class="hint">Non — il réduit les tâches répétitives ; l'équipe gère les cas complexes.</div></div>
+            <div class="faq-item"><strong>Que se passe-t-il si le bot ne sait pas ?</strong><div class="hint">Le flux est redirigé vers un contact humain (email ou ticket) — configurable.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Super CTA ===== -->
+      <section class="section">
+        <div class="section-inner super-cta">
+          <div>
+            <h3 style="margin:0">Prêt à économiser des heures de support ?</h3>
+            <div style="color:var(--muted); margin-top:6px">Essai gratuit · Installation offerte · Support FR</div>
+          </div>
+          <div style="display:flex; gap:10px">
+            <a href="#contact" class="cta" style="text-decoration:none">🚀 Lancer mon essai</a>
+            <a href="#contact" class="cta" style="background:#fff; color:var(--primary); border:1px solid var(--primary);">✉️ Me contacter</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Contact / Footer ===== -->
+      <section id="contact" class="section">
+        <div class="section-inner">
+          <h3>Contact</h3>
+          <p class="hint">Complétez ces informations (remplacer les placeholders) pour que les visiteurs puissent vous joindre facilement.</p>
+
+          <!-- Simple contact form (non fonctionnel = utiliser formulaire backend ou service comme Formspree) -->
+          <form id="contactForm" style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px" onsubmit="event.preventDefault(); alert('Remplacez le handler par votre backend / service form');">
+            <input placeholder="Nom" style="padding:12px; border-radius:10px; border:1px solid var(--border); flex:1; min-width:200px" />
+            <input placeholder="Email" style="padding:12px; border-radius:10px; border:1px solid var(--border); flex:1; min-width:200px" />
+            <input placeholder="Site / entreprise (optionnel)" style="padding:12px; border-radius:10px; border:1px solid var(--border); flex:1; min-width:200px" />
+            <textarea placeholder="Message" style="padding:12px; border-radius:10px; border:1px solid var(--border); flex-basis:100%; min-height:120px"></textarea>
+            <button class="cta" type="submit">Envoyer</button>
+          </form>
+
+        </div>
+      </section>
+
+      <footer>
+        <div>Made with 💜 — Votre nom ou marque</div>
+        <div style="display:flex; gap:12px"><a href="#" style="color:var(--muted); text-decoration:none">Mentions</a><a href="#" style="color:var(--muted); text-decoration:none">Politique RGPD</a></div>
+      </footer>
 
     </div>
   </div>
 
   <script>
-    // ======== Révéler le chat au clic (et initialiser une seule fois) ========
+    // ======== Réglage : on affiche le chat par défaut et on initialise ========
     const chatWrapper = document.getElementById("chatWrapper");
     const openChatBtn = document.getElementById("openChat");
     let chatInitialized = false;
 
-    openChatBtn.addEventListener("click", () => {
-      chatWrapper.classList.add("shown");
-      openChatBtn.style.display = "none";
-      if (!chatInitialized) {
-        initChat();              // crée le message d'accueil etc.
-        chatInitialized = true;  // empêche toute double init
-      }
-      // focus dans l'input après affichage
-      setTimeout(() => document.getElementById("userInput").focus(), 50);
+    // Faire en sorte que le chat soit visible et initialisé au chargement
+    document.addEventListener('DOMContentLoaded', ()=>{
+      if(openChatBtn) openChatBtn.style.display = 'none';
+      if(chatWrapper) chatWrapper.classList.add('shown');
+      if(!chatInitialized) { initChat(); chatInitialized = true; }
     });
 
-    // ======== Logique du chat (identique, mais appelée à l’ouverture) ========
+    // ======== Logique du chat (identique à ton code) ========
     function initChat(){
       const messagesEl = document.getElementById("messages");
       const form = document.getElementById("chatForm");
@@ -314,7 +451,7 @@
       modeSelect.addEventListener("change", refreshTenantCard);
       refreshTenantCard();
 
-      // Message d’accueil (au moment où le chat apparaît)
+      // Message d'accueil (au moment où le chat apparaît)
       appendBot("Bonjour 👋 Je suis l’assistant. Pose-moi ta question ou choisis un mode pour tester une persona.");
 
       // Envoi
@@ -351,5 +488,13 @@
       });
     }
   </script>
+
+  <!-- NOTE (à lire) : Remplacez les placeholders ci-dessous -->
+  <!-- TODO: TON_EMAIL_ICI -> remplacez par votre email de contact réel -->
+  <!-- TODO: Témoignages: remplacez les textes d'exemple par des avis réels de clients (ne pas inventer) -->
+  <!-- TODO: Logos: remplacez Logo 1/2/3 par des images de clients partenaires si vous en avez la permission -->
+  <!-- TODO: Pricing: ajustez les offres réelles et liens de paiement / formulaire -->
+  <!-- TODO: RGPD / Politique: ajoutez un lien vers votre politique de confidentialité et mentions légales -->
+
 </body>
 </html>
