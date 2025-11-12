@@ -188,6 +188,40 @@
       20%{opacity:1; transform:translateY(-3px);}
       100%{opacity:.2; transform:translateY(0);}
     }
+
+    /* —— Zone bouton/iframe intégré —— */
+    .embed-wrap{
+      width:min(1100px, 100%);
+      margin-top: 26px;
+      text-align:center;
+    }
+    .btn-ouvrir-bot{
+      background-color:#7c3aed;  /* change ici si tu veux bleu */
+      color:#fff;
+      border:none;
+      padding:14px 28px;
+      border-radius:12px;
+      font-size:18px;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 8px 20px rgba(124,58,237,.25);
+      transition:transform .06s ease, box-shadow .2s ease, background-color .2s ease;
+    }
+    .btn-ouvrir-bot:hover{ transform:translateY(-1px); background-color:#6d28d9; }
+    .iframe-box{
+      display:none;
+      margin:30px auto 0;
+      max-width:950px;
+      opacity:0;
+      transition: opacity .6s ease;
+    }
+    .iframe-box iframe{
+      width:100%; height:600px;
+      border:none; border-radius:20px;
+      box-shadow:0 8px 25px rgba(0,0,0,.1);
+      background:#fff;
+    }
+
     /* —— Fix mobile (<= 960px) ————————————— */
     @media (max-width: 960px){
       .side{
@@ -195,11 +229,9 @@
         top: auto;
         margin-bottom: 12px;
       }
-
       .chat{
         height: calc(100dvh - 140px);
       }
-
       .messages{
         padding: 12px 6px;
       }
@@ -249,6 +281,16 @@
         </form>
       </section>
     </div>
+
+    <!-- ===== Bouton qui ouvre le bot externe intégré (iframe) ===== -->
+    <div class="embed-wrap">
+      <button id="openBotBtn" class="btn-ouvrir-bot">💬 Tester le chatbot</button>
+
+      <div id="iframeBot" class="iframe-box">
+        <iframe src="https://bot-demo-2.vercel.app"></iframe>
+      </div>
+    </div>
+    <!-- ============================================================ -->
   </div>
 
   <script>
@@ -307,7 +349,7 @@
     // ——— Message d’accueil
     appendBot("Bonjour 👋 Je suis l’assistant. Pose-moi ta question ou choisis un mode pour tester une persona.");
 
-    // ——— Tenants démo (facultatif : change dynamiquement le cartouche de gauche)
+    // ——— Tenants démo
     const tenants = {
       pro:       { name:"Assistant Pro", price:"—", hours:"—", channels:"—" },
       chaleureux:{ name:"Assistant Chaleureux", price:"—", hours:"—", channels:"—" },
@@ -365,6 +407,16 @@
       }finally{
         sendBtn.disabled = false;
       }
+    });
+
+    // ——— Bouton qui ouvre l'iframe (bot externe intégré)
+    const openBtn = document.getElementById("openBotBtn");
+    const iframeBox = document.getElementById("iframeBot");
+    openBtn.addEventListener("click", ()=>{
+      iframeBox.style.display = "block";
+      // effet fade-in
+      requestAnimationFrame(()=>{ iframeBox.style.opacity = "1"; });
+      openBtn.style.display = "none";
     });
   </script>
 </body>
