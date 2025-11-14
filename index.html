@@ -384,13 +384,24 @@
           </p>
 
           <!-- Simple contact form (non fonctionnel = utiliser formulaire backend ou service comme Formspree) -->
-          <form id="contactForm" style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px" onsubmit="event.preventDefault(); alert('Remplacez le handler par votre backend / service form');">
-            <input placeholder="Nom" style="padding:12px; border-radius:10px; border:1px solid var(--border); flex:1; min-width:200px" />
-            <input placeholder="Email" style="padding:12px; border-radius:10px; border:1px solid var(--border); flex:1; min-width:200px" />
-            <input placeholder="Site / entreprise (optionnel)" style="padding:12px; border-radius:10px; border:1px solid var(--border); flex:1; min-width:200px" />
-            <textarea placeholder="Message" style="padding:12px; border-radius:10px; border:1px solid var(--border); flex-basis:100%; min-height:120px"></textarea>
+          <form action="https://formspree.io/f/xovyvgkg" method="POST" style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px">
+
+            <input name="name" placeholder="Nom" required
+              style="padding:12px; border-radius:10px; border:1px solid var(--border); flex:1; min-width:200px" />
+
+            <input name="email" type="email" placeholder="Email" required
+              style="padding:12px; border-radius:10px; border:1px solid var(--border); flex:1; min-width:200px" />
+
+            <input name="company" placeholder="Site / entreprise (optionnel)"
+              style="padding:12px; border-radius:10px; border:1px solid var(--border); flex:1; min-width:200px" />
+
+            <textarea name="message" placeholder="Message" required
+              style="padding:12px; border-radius:10px; border:1px solid var(--border); flex-basis:100%; min-height:120px"></textarea>
+
             <button class="cta" type="submit">Envoyer</button>
+
           </form>
+
 
         </div>
       </section>
