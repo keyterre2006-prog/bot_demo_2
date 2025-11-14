@@ -131,25 +131,46 @@
       .pricing{grid-template-columns:1fr}
     }
 
-      /* === Hotfix mobile: empêcher les débordements sur petits écrans === */
-      html, body{ overflow-x:hidden }
-      img, iframe, .grid, .card, .chat, .side{ max-width:100% }
-      .section .section-inner{ overflow:hidden }
+    /* === Hotfix mobile: empêcher les débordements sur petits écrans === */
+    html, body{ overflow-x:hidden }
+    img, iframe, .grid, .card, .chat, .side{ max-width:100% }
+    .section .section-inner{ overflow:hidden }
 
-      @media (max-width: 600px){
-        /* Le conteneur de démo doit rester dans la carte blanche */
-        .chat{ height:auto; overflow:hidden }
-        .messages{ max-height:52vh }
-        .grid{ gap:12px }
-        .section .section-inner{ padding:16px }
-        .composer{ gap:8px; padding:10px }
-        .btn{ box-shadow:none }
+    @media (max-width: 600px){
+      /* Le conteneur de démo doit rester dans la carte blanche */
+      .chat{ height:auto; overflow:hidden }
+      .messages{ max-height:52vh }
+      .grid{ gap:12px }
+      .section .section-inner{ padding:16px }
+      .composer{ gap:8px; padding:10px }
+      .btn{ box-shadow:none }
+
+      /* Fix mobile pour la super-cta */
+      .super-cta{
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        gap: 16px;
       }
 
-      /* (Optionnel) Rétablir la largeur des bulles à 70% uniquement sur desktop */
-      @media (min-width: 961px){
-        .bubble{ max-width:70% }
+      .super-cta > div:last-child{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        width:100%;
       }
+
+      .super-cta a{
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    /* (Optionnel) Rétablir la largeur des bulles à 70% uniquement sur desktop */
+    @media (min-width: 961px){
+      .bubble{ max-width:70% }
+    }
+
 
   </style>
 </head>
